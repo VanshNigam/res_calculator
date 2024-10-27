@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container */
+        .container {
+            width: 300px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+        }
+
+        /* Output Display */
+        .output {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-align: right;
+            background-color: #222;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: white;
+        }
+
+        /* Buttons Grid */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        /* Buttons */
+        button {
+            width: 100%;
+            height: 60px;
+            font-size: 1.2em;
+            background-color: #666;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CASIO</h1>
+        <div class="output" id="output">0</div>
+        <div class="button-grid">
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button onclick="del()">Del</button>
+            <button onclick="clearDisplay()">AC</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="evaluateResult()">Ans</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+    </div>
+
+    <script>
+        let currentDisplay = "0";
+
+        function appendToDisplay(value) {
+            if (currentDisplay === "0") {
+                currentDisplay = value;
+            } else {
+                currentDisplay += value;
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById("output").innerText = currentDisplay;
+        }
+
+        function evaluateResult() {
+            try {
+                currentDisplay = eval(currentDisplay).toString();
+                updateDisplay();
+            } catch (error) {
+                currentDisplay = "Error";
+                updateDisplay();
+            }
+        }
+
+        function clearDisplay() {
+            currentDisplay = "0";
+            updateDisplay();
+        }
+
+        function del() {
+            if (currentDisplay.length > 1) {
+                currentDisplay = currentDisplay.slice(0, -1);
+            } else {
+                currentDisplay = "0";
+            }
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
